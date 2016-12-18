@@ -18,7 +18,18 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
+   //width: 250,  height: 100,
+  mainWindow = new BrowserWindow({
+    width: 800, 
+    height: 600,
+    alwaysOnTop : true,
+    autoHideMenuBar : true,
+    frame: false,
+    titleBarStyle : 'hidden', 
+    webPreferences : {
+         // devTools : false
+    }
+  })
 
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
@@ -37,6 +48,8 @@ function createWindow () {
     // when you should delete the corresponding element.
     mainWindow = null
   })
+
+  mainWindow.show()
 }
 
 // This method will be called when Electron has finished

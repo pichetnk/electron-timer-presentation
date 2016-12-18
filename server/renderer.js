@@ -9,7 +9,7 @@ server.listen(3000);
 
 let btnStart  = document.getElementById('btnStart');
 let btnStop  = document.getElementById('btnStop');
-let btnSave  = document.getElementById('btnSave');
+let btnSet  = document.getElementById('btnSet');
 let btnReset  = document.getElementById('btnReset');
 
 let txtMinutes = document.getElementById('txtMinutes');
@@ -20,7 +20,7 @@ io.on('connection', function(socket){
 	socket.on('disconnect', function(){
 		console.log('gone');
 	});
-    socket.emit('timeUpdate', { minutes: txtMinutes.value,second:txtSecond.value });
+    socket.emit('timer-event', { minutes: txtMinutes.value,second:txtSecond.value });
     
 });
 
@@ -28,19 +28,19 @@ io.on('connection', function(socket){
 
 
 btnStart.addEventListener('click',function(){   
-    io.emit('timeStart', { code: '01' });   
+    io.emit('timer-event', { code: '01',codeDesc:'timeStart' });   
 });
 
 btnStop.addEventListener('click',function(){
-     io.emit('timeStop', { code: '02' });
+     io.emit('timer-event', { code: '02',codeDesc:'timeStop' });
 });
 
 btnReset.addEventListener('click',function(){
-     io.emit('timeReset', { code: '03' });
+     io.emit('timer-event', { code: '03',codeDesc:'timeReset' });
 });
 
-btnSave.addEventListener('click',function(){
-  io.emit('timeUpdate', { minutes: txtMinutes.value,second:txtSecond.value });
+btnSet.addEventListener('click',function(){
+  io.emit('timer-event', {code: '00',codeDesc:'timeUpdate', minutes: txtMinutes.value,second:txtSecond.value });
 });
 
 

@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Hello World!</title>
+    <title>Timer</title>
     <style>
     .textRed{
           color: #ff0000;
@@ -10,16 +10,23 @@
     .textNomal{
           color: #000000;
     }
+
+    #timeDis {
+      font-size: 20px;
+    }
+     body {
+        -webkit-app-region: drag;
+      }
     </style>
   </head>
   <body>
   <button type="button" id="btnStart" value="Start">Start</button>
   <button type="button" id="btnStop" value="Stop">Stop</button>
-    <br>
-    <input type="text" id="txtDoc" value=""> 
-    <p>
-        <span id="timeDis">05:00</span>
-    </p>
+  <button type="button" id="btnClose" value="Close">Close</button>
+  <p>
+        <span id="timeDis">00:00:00</span>
+  </p>
+ 
   </body>
 
   <script>
