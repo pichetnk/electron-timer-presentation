@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <style>
+    .textRed{
+          color: #ff0000;
+    }
+    .textNomal{
+          color: #000000;
+    }
+    </style>
+  </head>
+  <body>
+  <button type="button" id="btnStart" value="Start">Start</button>
+  <button type="button" id="btnStop" value="Stop">Stop</button>
+    <br>
+    <input type="text" id="txtDoc" value=""> 
+    <p>
+        <span id="timeDis">05:00</span>
+    </p>
+  </body>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</html>

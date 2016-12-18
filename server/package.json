@@ -1,0 +1,24 @@
+{
+  "name": "electron-timer-presentation-server,
+  "version": "0.0.1",
+  "description": "timer-presentation-server",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": "https://github.com/pichetnk/electron-timer-presentation",
+  "keywords": [
+    "Electron",
+	"presentation",
+    "timer"
+  ],
+  "author": "Pichet Wongbuakaew <pichet.nk@gmail.com>",
+  "license": "",
+  "devDependencies": {
+    "electron": "^1.4.1",
+    "electron-prebuilt": "^1.4.12"
+  },
+  "dependencies": {
+    "socket.io": "^1.7.2"
+  }
+}
