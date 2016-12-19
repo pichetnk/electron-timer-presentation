@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Timer</title>
+    <link rel="stylesheet" href="css/font-awesome.min.css">
     <style>
     .textRed{
           color: #ff0000;
@@ -14,19 +15,32 @@
     #timeDis {
       font-size: 20px;
     }
+    .col {
+      float: left;
+    }
+    .fa-play:hover {
+      color: red;
+    }
+    .fa-stop:hover {
+      color: red;
+    }
      body {
         -webkit-app-region: drag;
       }
     </style>
   </head>
   <body>
-  <button type="button" id="btnStart" value="Start">Start</button>
-  <button type="button" id="btnStop" value="Stop">Stop</button>
-  <button type="button" id="btnClose" value="Close">Close</button>
-  <p>
-        <span id="timeDis">00:00:00</span>
-  </p>
- 
+  <div class="content">
+    <div class="col content-button">
+      <i class="fa fa-play" id="btnStart"  aria-hidden="true"></i>      
+      <i class="fa fa-pause"  id="btnPause"  aria-hidden="true"></i>
+      <i class="fa fa-stop" id="btnReset"  aria-hidden="true"></i>
+     <!-- <button type="button" id="btnClose" value="Close">Close</button> -->
+    </div>
+    <div class="col content-timer">
+          <span id="timeDis">00:00:00</span>
+    </div>
+  </div>
   </body>
 
   <script>

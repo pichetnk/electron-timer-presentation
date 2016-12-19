@@ -5,20 +5,31 @@ var remote = require('electron').remote;
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
+var fs = require('fs');
 
 let txtDoc = document.getElementById('txtDoc');
 let timeDis = document.getElementById('timeDis');
 let btnStart  = document.getElementById('btnStart');
-let btnStop  = document.getElementById('btnStop');
+let btnReset  = document.getElementById('btnReset');
 let btnClose = document.getElementById('btnClose');
+let btnPause = document.getElementById('btnPause');
+
 
 var timeCountdownInterval;
-var minutesInit,secondsInit
-
+var minutesInit=5,secondsInit=0;
+var setting;
 var duration =0;
 var timer = duration, minutes, seconds,milliseconds;
 
-var socket = require('socket.io-client').connect('http://localhost:3000',
+fs.readFile('setting.json', 'utf8', function (err, data) {
+  if (err) return console.log(err);
+    setting= JSON.parse(data);
+    console.log(setting);
+    initSocket();
+});
+
+function initSocket() {
+var socket = require('socket.io-client').connect(setting.server,
          { reconnect: true }); 
 socket.on('connect', function() { 
       console.log('Connected to server.'); 
@@ -29,15 +40,20 @@ socket.on('connect', function() {
                 minutesInit =parseInt(data.minutes,10);
                 secondsInit =parseInt(data.second,10);
                 duration =  (minutesInit*60000)+(secondsInit*1000);
+                 setUpDurationTime();
+              //  displayTime(); 
             }else if (data.code=='01') {//timeStart
-                setUpDurationTime();
+                console.log('timeStart');
+                //setUpDurationTime();
                 timeCountdown();
                 timeCountdownInterval= setInterval(timeCountdown, 10);
             }
             else if (data.code=='02') {//timeStop
+                console.log('timeStop');
                 clearInterval(timeCountdownInterval);
             }
             else if (data.code=='03') {//timeReset
+                console.log('timeReset');
                 setUpDurationTime();
                 displayTime(); 
             }
@@ -64,6 +80,7 @@ socket.on('connect', function() {
      });
     */
 });
+}
 /*
 io.on('connection', function(socket){
  socket.on('time-sync', function(msg){
@@ -80,14 +97,25 @@ http.listen(3000, function() {
 
 
 btnStart.addEventListener('click',function(){
-    timer =duration;
+    //timer =duration;
     timeCountdownInterval= setInterval(timeCountdown, 10);
   
 });
+btnReset.addEventListener('click',function(){
+    clearInterval(timeCountdownInterval);
+    timer =duration;
+    setUpDurationTime();
+    displayTime(); 
+});
 
+btnPause.addEventListener('click',function(){
+    clearInterval(timeCountdownInterval);
+});
+/*
 btnStop.addEventListener('click',function(){
     clearInterval(timeCountdownInterval);
 });
+*/
 //var myVar = setInterval(myTimer, 1000);
 btnClose.addEventListener('click', function () {
      console.log('btnClose c');
