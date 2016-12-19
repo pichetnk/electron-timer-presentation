@@ -13,7 +13,7 @@
     "timer"
   ],
   "author": "Pichet Wongbuakaew <pichet.nk@gmail.com>",
-  "license": "",
+  "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.1",
     "electron-prebuilt": "^1.4.12"
