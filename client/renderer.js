@@ -15,7 +15,7 @@ let btnClose = document.getElementById('btnClose');
 let btnPause = document.getElementById('btnPause');
 
 
-var timeCountdownInterval;
+var timeCountdownInterval=false;
 var minutesInit=5,secondsInit=0;
 var setting;
 var duration =0;
@@ -23,14 +23,20 @@ var timer = duration, minutes, seconds,milliseconds;
 
 fs.readFile('setting.json', 'utf8', function (err, data) {
   if (err) return console.log(err);
+    
+
+   // initSocket();
+   async ( function (){
     setting= JSON.parse(data);
-    console.log(setting);
-    initSocket();
+        console.log(setting);
+   } , initSocket );
 });
+      
+   
+
 
 function initSocket() {
-var socket = require('socket.io-client').connect(setting.server,
-         { reconnect: true }); 
+var socket = require('socket.io-client').connect(setting.server,{ reconnect: true }); 
 socket.on('connect', function() { 
       console.log('Connected to server.'); 
       socket.on('timer-event', function(data) { //code 
@@ -40,22 +46,22 @@ socket.on('connect', function() {
                 minutesInit =parseInt(data.minutes,10);
                 secondsInit =parseInt(data.second,10);
                 duration =  (minutesInit*60000)+(secondsInit*1000);
-                 setUpDurationTime();
+                setUpDurationTime();
               //  displayTime(); 
             }else if (data.code=='01') {//timeStart
                 console.log('timeStart');
                 //setUpDurationTime();
-                timeCountdown();
-                timeCountdownInterval= setInterval(timeCountdown, 10);
+                //timeCountdown();
+                //timeCountdownInterval= setInterval(timeCountdown, 10);
+                startTime();
             }
-            else if (data.code=='02') {//timeStop
+            else if (data.code=='02') {//pause
                 console.log('timeStop');
-                clearInterval(timeCountdownInterval);
+                pauseTime();
             }
             else if (data.code=='03') {//timeReset
                 console.log('timeReset');
-                setUpDurationTime();
-                displayTime(); 
+                resetTime();
             }
            
             //setUpDurationTime();
@@ -98,18 +104,15 @@ http.listen(3000, function() {
 
 btnStart.addEventListener('click',function(){
     //timer =duration;
-    timeCountdownInterval= setInterval(timeCountdown, 10);
-  
+    //timeCountdownInterval= setInterval(timeCountdown, 10);
+    startTime();
 });
 btnReset.addEventListener('click',function(){
-    clearInterval(timeCountdownInterval);
-    timer =duration;
-    setUpDurationTime();
-    displayTime(); 
+   resetTime();
 });
 
 btnPause.addEventListener('click',function(){
-    clearInterval(timeCountdownInterval);
+    pauseTime();
 });
 /*
 btnStop.addEventListener('click',function(){
@@ -117,17 +120,19 @@ btnStop.addEventListener('click',function(){
 });
 */
 //var myVar = setInterval(myTimer, 1000);
-btnClose.addEventListener('click', function () {
+/*btnClose.addEventListener('click', function () {
      console.log('btnClose c');
      var window = remote.getCurrentWindow();
      console.log(window);
      window.close();  
 }); 
+*/
 function timeCountdown() {
 
    timer = timer-10;
    if (timer < 0) {
-      clearInterval(timeCountdownInterval);
+    //clearInterval(timeCountdownInterval);
+    pauseTime();
   }
 
   async ( function (){
@@ -151,9 +156,9 @@ function displayTime(){
         milliseconds = milliseconds < 10 ? "0" + milliseconds : milliseconds;
 
         if(timer<60000){
-        timeDis.className = "textRed";
+            timeDis.className = "textRed";
         }else {
-        timeDis.className = "textNomal";
+            timeDis.className = "textNomal";
         }
         timeDis.textContent = minutes + ":" + seconds+":"+milliseconds;
     }
@@ -164,4 +169,26 @@ function async(your_function, callback) {
         your_function();
         if (callback) {callback();}
     }, 0);
+}
+
+function startTime(){
+    
+    if(timeCountdownInterval === false) {
+        btnPause.style="";
+        btnStart.style="display: none;";
+        timeCountdown();
+        timeCountdownInterval= setInterval(timeCountdown, 10);
+    }
+}
+
+function pauseTime(){
+    btnPause.style="display: none;";
+    btnStart.style="";
+    clearInterval(timeCountdownInterval);
+    timeCountdownInterval = false;
+}
+
+function resetTime() {
+    setUpDurationTime();
+    displayTime(); 
 }

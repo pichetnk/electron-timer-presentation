@@ -23,10 +23,11 @@ function createWindow () {
     width: 800, 
     height: 600,
   //  alwaysOnTop : true,
-    autoHideMenuBar : true,
-    titleBarStyle : 'hidden', 
+     frame: false,
+    transparent : true,
+    titleBarStyle : 'hidden-inset',
     webPreferences : {
-         // devTools : false
+          devTools : false
     }
   })
 

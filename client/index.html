@@ -11,9 +11,8 @@
     .textNomal{
           color: #000000;
     }
-
     #timeDis {
-      font-size: 20px;
+      font-size: 25px;
     }
     .col {
       float: left;
@@ -24,21 +23,35 @@
     .fa-stop:hover {
       color: red;
     }
+    .fa-pause:hover {
+      color: red;
+    }
+    .hidden {
+      display: none;
+    }
+    #content-button {
+        padding-left: 30px;
+    }
+    #content-timer {
+        padding-left: 15px;
+    }
      body {
         -webkit-app-region: drag;
+       background-color: #ffffff;
       }
     </style>
   </head>
   <body>
   <div class="content">
-    <div class="col content-button">
-      <i class="fa fa-play" id="btnStart"  aria-hidden="true"></i>      
-      <i class="fa fa-pause"  id="btnPause"  aria-hidden="true"></i>
+  
+    <div class="col" id="content-timer">
+          <span id="timeDis">00:00:00</span>
+    </div>
+    <div class="col" id="content-button">
+      <i class="fa fa-play" id="btnStart" aria-hidden="true"></i>      
+      <i class="fa fa-pause"  id="btnPause" style="display: none;"   aria-hidden="true"></i>
       <i class="fa fa-stop" id="btnReset"  aria-hidden="true"></i>
      <!-- <button type="button" id="btnClose" value="Close">Close</button> -->
-    </div>
-    <div class="col content-timer">
-          <span id="timeDis">00:00:00</span>
     </div>
   </div>
   </body>
