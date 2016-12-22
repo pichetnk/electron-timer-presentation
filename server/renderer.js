@@ -3,8 +3,9 @@
 // All of the Node.js APIs are available in this process.
 var server = require('http').createServer();
 var io = require('socket.io')(server);
+var fs = require('fs');
 
-server.listen(3000);
+
 
 
 let btnStart  = document.getElementById('btnStart');
@@ -15,14 +16,30 @@ let btnReset  = document.getElementById('btnReset');
 let txtMinutes = document.getElementById('txtMinutes');
 let txtSecond  = document.getElementById('txtSecond');
 
-io.on('connection', function(socket){
-	socket.on('event', function(data){});
-	socket.on('disconnect', function(){
-		console.log('gone');
-	});
+var setting;
+
+fs.readFile('setting.json', 'utf8', function (err, data) {
+    if (err) return console.log(err);    
+    setting= JSON.parse(data);
+    initSocket();  
+   
+});
+      
+
+function initSocket(){
+
+     server.listen(setting.port);
+     io.on('connection', function(socket){
+     socket.on('event', function(data){});
+        socket.on('disconnect', function(){
+            console.log('gone');
+        });
     socket.emit('timer-event', { minutes: txtMinutes.value,second:txtSecond.value });
     
-});
+    });
+
+
+}
 
 
 

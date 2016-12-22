@@ -4,21 +4,35 @@
   "description": "timer-presentation-server",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+     "dist": "build --x64 --ia32"
   },
   "repository": "https://github.com/pichetnk/electron-timer-presentation",
   "keywords": [
     "Electron",
-	"presentation",
+    "presentation",
     "timer"
   ],
   "author": "Pichet Wongbuakaew <pichet.nk@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "electron": "^1.4.1",
-    "electron-prebuilt": "^1.4.12"
+    "electron-prebuilt": "^1.4.12",
+     "electron-builder": "^10.9.3"
   },
   "dependencies": {
-    "socket.io": "^1.7.2"
+     "socket.io": "^1.7.2"
+  },
+   "build": {
+    "appId": "com.pichet.timerclient",
+    "mac": {
+      "category": "public.app-category.utilities"
+    },
+    "win": {
+      "title": "Timer Client",
+      "version": "0.0.1",
+      "authors": "Pichet Wongbuakaew",
+      "iconUrl": "images/icon.png"
+    }
   }
 }

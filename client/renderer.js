@@ -22,21 +22,16 @@ var duration =0;
 var timer = duration, minutes, seconds,milliseconds;
 
 fs.readFile('setting.json', 'utf8', function (err, data) {
-  if (err) return console.log(err);
-    
-
-   // initSocket();
-   async ( function (){
+    if (err) return console.log(err);    
     setting= JSON.parse(data);
-        console.log(setting);
-   } , initSocket );
+    initSocket();  
 });
       
    
 
 
 function initSocket() {
-var socket = require('socket.io-client').connect(setting.server,{ reconnect: true }); 
+var socket = require('socket.io-client').connect('http://'+setting.server+':'+setting.port,{ reconnect: true }); 
 socket.on('connect', function() { 
       console.log('Connected to server.'); 
       socket.on('timer-event', function(data) { //code 
@@ -64,43 +59,10 @@ socket.on('connect', function() {
                 resetTime();
             }
            
-            //setUpDurationTime();
-            //displayTime(); 
+
       }) 
-/*
-     socket.on('timeStart', function (data) {
-            console.log(data);
-            setUpDurationTime();
-            timeCountdown();
-            imeCountdownInterval= setInterval(timeCountdown, 10);
-     });
-     
-     socket.on('timeStop', function (data) {
-            console.log(data);
-            clearInterval(timeCountdownInterval);
-     });
-     socket.on('timeReset', function (data) {
-            console.log(data);
-            setUpDurationTime();
-            displayTime(); 
-     });
-    */
 });
 }
-/*
-io.on('connection', function(socket){
- socket.on('time-sync', function(msg){
-    console.log('message: ' + msg);
-  });
-});
-http.listen(3000, function() {
-  console.log('listening on *:3000' );
-});
-
-*/
-
-//timeDis.innerHTML="sadasdasd";
-
 
 btnStart.addEventListener('click',function(){
     //timer =duration;
@@ -120,13 +82,13 @@ btnStop.addEventListener('click',function(){
 });
 */
 //var myVar = setInterval(myTimer, 1000);
-/*btnClose.addEventListener('click', function () {
+btnClose.addEventListener('click', function () {
      console.log('btnClose c');
      var window = remote.getCurrentWindow();
      console.log(window);
      window.close();  
 }); 
-*/
+
 function timeCountdown() {
 
    timer = timer-10;

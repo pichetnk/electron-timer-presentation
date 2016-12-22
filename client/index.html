@@ -7,9 +7,11 @@
     <style>
     .textRed{
           color: #ff0000;
+          font-weight: bold;
     }
     .textNomal{
           color: #000000;
+          font-weight: bold;
     }
     #timeDis {
       font-size: 25px;
@@ -17,41 +19,56 @@
     .col {
       float: left;
     }
-    .fa-play:hover {
+    #btnStart:hover {
       color: red;
     }
-    .fa-stop:hover {
+    #btnClose{
+        position: fixed;
+        top: 10px;
+        right: 10px;
+    }  
+    #btnClose:hover{
+        color: red;
+    }  
+    #btnPause:hover {
       color: red;
     }
-    .fa-pause:hover {
+    #btnReset:hover {
       color: red;
     }
     .hidden {
       display: none;
     }
     #content-button {
-        padding-left: 30px;
+        padding-top: 15px;
+        padding-left: 20px;
     }
     #content-timer {
+        padding-top: 10px;      
         padding-left: 15px;
-    }
-     body {
         -webkit-app-region: drag;
-       background-color: #ffffff;
-      }
+    }
+    .content {
+       width: 200px; 
+       height: 45px;
+       background-color: #77c3f7;
+       -webkit-border-radius: 10px;
+       -moz-border-radius: 10px;
+       border-radius: 10px;
+    }
     </style>
   </head>
   <body>
   <div class="content">
   
     <div class="col" id="content-timer">
-          <span id="timeDis">00:00:00</span>
+          <span id="timeDis" class="textNomal" >00:00:00</span>
     </div>
     <div class="col" id="content-button">
       <i class="fa fa-play" id="btnStart" aria-hidden="true"></i>      
       <i class="fa fa-pause"  id="btnPause" style="display: none;"   aria-hidden="true"></i>
-      <i class="fa fa-stop" id="btnReset"  aria-hidden="true"></i>
-     <!-- <button type="button" id="btnClose" value="Close">Close</button> -->
+      <i class="fa fa-refresh" id="btnReset"  aria-hidden="true"></i>
+      <i class="fa fa-times" aria-hidden="true" id="btnClose"></i>
     </div>
   </div>
   </body>

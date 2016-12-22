@@ -18,17 +18,12 @@ let mainWindow
 
 function createWindow () {
   // Create the browser window.
-   //width: 250,  height: 100,
   mainWindow = new BrowserWindow({
-    width: 800, 
-    height: 600,
-  //  alwaysOnTop : true,
-     frame: false,
+    width: 210, 
+    height: 65,
     transparent : true,
-    titleBarStyle : 'hidden-inset',
-    webPreferences : {
-          devTools : false
-    }
+    frame: false,
+    alwaysOnTop : true
   })
 
   // and load the index.html of the app.
@@ -39,7 +34,7 @@ function createWindow () {
   }))
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
