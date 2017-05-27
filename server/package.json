@@ -5,7 +5,8 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dist": "build --x64 --ia32"
+    "dist": "build --x64 --ia32",
+	"dist-mac" : "build --mac"
   },
   "repository": "https://github.com/pichetnk/electron-timer-presentation",
   "keywords": [
