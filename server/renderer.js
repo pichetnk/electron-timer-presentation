@@ -4,7 +4,7 @@
 var server = require('http').createServer();
 var io = require('socket.io')(server);
 var fs = require('fs');
-
+var axios = require('axios');
 
 
 
@@ -17,14 +17,26 @@ let txtMinutes = document.getElementById('txtMinutes');
 let txtSecond  = document.getElementById('txtSecond');
 
 var setting;
-
+/*
 fs.readFile('setting.json', 'utf8', function (err, data) {
     if (err) return console.log(err);    
     setting= JSON.parse(data);
     initSocket();  
    
 });
-      
+*/
+
+function initSetting(){
+	axios.get('http://ywc.in.th/timePresent/server.json')
+	  .then(function (response) {
+		console.log(response);
+		setting = response.data;
+		initSocket();
+	  })
+	  .catch(function (error) {
+		console.log(error);
+	  });
+}     
 
 function initSocket(){
 
@@ -42,7 +54,7 @@ function initSocket(){
 }
 
 
-
+initSetting();
 
 btnStart.addEventListener('click',function(){   
     io.emit('timer-event', { code: '01',codeDesc:'timeStart' });   

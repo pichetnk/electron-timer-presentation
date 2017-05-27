@@ -6,6 +6,8 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var fs = require('fs');
+var axios = require('axios');
+
 
 let txtDoc = document.getElementById('txtDoc');
 let timeDis = document.getElementById('timeDis');
@@ -21,11 +23,28 @@ var setting;
 var duration =0;
 var timer = duration, minutes, seconds,milliseconds;
 
+minutesInit =parseInt(10,10);
+secondsInit =parseInt(0,10);
+duration =  (minutesInit*60000)+(secondsInit*1000);
+/*
 fs.readFile('setting.json', 'utf8', function (err, data) {
     if (err) return console.log(err);    
     setting= JSON.parse(data);
     initSocket();  
 });
+*/
+function initSetting(){
+	axios.get('http://ywc.in.th/timePresent/client.json')
+	  .then(function (response) {
+		console.log(response);
+		setting = response.data;
+		initSocket();  
+	  })
+	  .catch(function (error) {
+		console.log(error);
+	  });
+}     
+
       
    
 
@@ -63,6 +82,8 @@ socket.on('connect', function() {
       }) 
 });
 }
+
+initSetting();
 
 btnStart.addEventListener('click',function(){
     //timer =duration;
